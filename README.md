@@ -7,21 +7,22 @@ You can find more details about MapKitJS using the offical [Apple Dokumentation]
 
 ### Example 1
 ```
-let header = TokenHeader::new_with_key_id("ASDFGHJKL1".to_string(), TokenType::JWT);
-let payload = TokenPayload::new_with("QWERTZUIOP".to_string(), 1583533534, 1528476433723);
-let token = generate_with_filepath("./key.p8".to_string(), header, payload);
+let header = TokenHeader::new_with_key_id(&"ASDFGHJKL1", TokenType::JWT);
+let payload = TokenPayload::new_with(&"QWERTZUIOP", 1583533534, 1528476433723, &"http://my-website.com");
+let token = generate_with_filepath(&"./key.p8", header, payload);
 println("{}", token);
 ```
 
 ### Example 2
 ```
 let token = generate_with_key_file(
-  "./key.p8".to_string(),
-  "ASDFGHJKL1".to_string(),
+  &"./key.p8",
+  &"ASDFGHJKL1",
   TokenType::JWT,
-  "QWERTZUIOP".to_string(),
+  &"QWERTZUIOP",
   1583533534,
-  1528476433723
+  1528476433723,
+  &"http://my-website.com"
 );
 println("{}, token");
 ```
@@ -30,22 +31,23 @@ println("{}, token");
 ```
 let token = generate_with_key_data(
     data,
-    "ASDFGHJKL1".to_string(),
+    &"ASDFGHJKL1",
     TokenType::JWT,
-    "QWERTZUIOP".to_string(),
+    &"QWERTZUIOP",
     1583533534,
-    1528476433723
+    1528476433723,
+    &"http://my-website.com"
 );
 println("{}", token);
 ```
 
 ### Example 4
 ```
-let data = fs::read("./key.p8".to_string())
+let data = fs::read(&"./key.p8")
     .expect("Provided file key.p8 does not exist");
 
-let header = TokenHeader::new_with_key_id("ASDFGHJKL1".to_string(), TokenType::JWT);
-let payload = TokenPayload::new_with("QWERTZUIOP".to_string(), 1583533534, 1528476433723);
+let header = TokenHeader::new_with_key_id(&"ASDFGHJKL1", TokenType::JWT);
+let payload = TokenPayload::new_with(&"QWERTZUIOP", 1583533534, 1528476433723, &"http://my-websize.com");
 let token = generate_with_data(data, header, payload);
 println("{}", token);
 ```

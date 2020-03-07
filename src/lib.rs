@@ -19,14 +19,14 @@ pub struct TokenHeader {
 }
 
 impl TokenHeader {
-    pub fn new(kid: String, typ: TokenType) -> Self {
+    pub fn new(kid: &str, typ: TokenType) -> Self {
         TokenHeader { 
-            kid: Option::Some(kid), 
+            kid: Option::Some(kid.to_string()), 
             typ,
         }
     }
 
-    pub fn new_with_key_id(key_id: String, typ: TokenType) -> Self {
+    pub fn new_with_key_id(key_id: &str, typ: TokenType) -> Self {
         TokenHeader::new(key_id, typ)
     }
 
@@ -38,26 +38,41 @@ impl TokenHeader {
     }
 }
 
-
 #[derive(Debug, Serialize, Deserialize)]
 pub struct TokenPayload{
     iss: String,
     iat: i64,
     exp: i64,
+    origin: String,
 }
 
 impl TokenPayload{
-    pub fn new(iss: String, iat: i64, exp: i64) -> Self {
-        TokenPayload { iss, iat, exp}
+    pub fn new(
+        iss: &str,
+        iat: i64,
+        exp: i64,
+        origin: &str 
+    ) -> Self {
+        TokenPayload { 
+            iss: iss.to_string(),
+            iat,
+            exp,
+            origin: origin.to_string(),
+        }
     }
 
-    pub fn new_with(team_id: String, created_at: i64, expires_at: i64) -> Self {
-        TokenPayload::new(team_id, created_at, expires_at)
+    pub fn new_with(
+        team_id: &str, 
+        created_at: i64, 
+        expires_at: i64,
+        origin: &str
+    ) -> Self {
+        TokenPayload::new(team_id, created_at, expires_at, origin)
     }
 }
 
 pub fn generate_with_filepath(
-    filepath: String,
+    filepath: &str,
     header: TokenHeader,
     payload: TokenPayload
 ) -> String {
@@ -68,28 +83,30 @@ pub fn generate_with_filepath(
 }
 
 pub fn generate_with_key_file(
-    key_file: String,
-    key_id: String,
+    key_file: &str,
+    key_id: &str,
     typ: TokenType,
-    team_id: String,
+    team_id: &str,
     created_at: i64,
     expires_at: i64,
+    origin: &str,
 ) -> String {
     let header = TokenHeader::new_with_key_id(key_id, typ);
-    let payload = TokenPayload::new_with(team_id, created_at, expires_at);
+    let payload = TokenPayload::new_with(team_id, created_at, expires_at, origin);
     generate_with_filepath(key_file, header, payload)
 }
 
 pub fn generate_with_key_data(
     key_data: Vec<u8>,
-    key_id: String,
+    key_id: &str,
     typ: TokenType,
-    team_id: String,
+    team_id: &str,
     created_at: i64,
     expires_at: i64,
+    origin: &str, 
 ) -> String {
     let header = TokenHeader::new_with_key_id(key_id, typ);
-    let payload = TokenPayload::new_with(team_id, created_at, expires_at);
+    let payload = TokenPayload::new_with(team_id, created_at, expires_at, origin);
     generate_with_data(key_data, header, payload)
 }
 
@@ -109,7 +126,4 @@ pub fn generate_with_data(
 
     encode(&_header, &payload, &encoded_key).unwrap()
 }
-
-
-
 
