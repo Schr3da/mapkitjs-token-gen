@@ -1,9 +1,7 @@
 # mapkitjs-token-gen
-This is an utility library to generate jwt token for mapkitjs. The jwt token is required in order to use the mapkit. 
-This library provides helper function to create quickly valid tokens.
+This utility library provides wrapper functions to generate MapKitJS valid jwt tokens for your rust program. 
 
-You can find more details about mapkitjs reading the offical docs
-[Offical Apple MapKitjs Documentation](https://developer.apple.com/documentation/mapkitjs)
+You can find more details about MapKitJS using the offical [Apple Dokumentation](https://developer.apple.com/documentation/mapkitjs)
 
 ## Usage
 
