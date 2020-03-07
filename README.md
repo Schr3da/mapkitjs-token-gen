@@ -36,6 +36,7 @@ let token = generate_with_key_data(
     1583533534,
     1528476433723
 );
+println("{}", token);
 ```
 
 ### Example 4
@@ -46,5 +47,6 @@ let data = fs::read("./key.p8".to_string())
 let header = TokenHeader::new_with_key_id("ASDFGHJKL1".to_string(), TokenType::JWT);
 let payload = TokenPayload::new_with("QWERTZUIOP".to_string(), 1583533534, 1528476433723);
 let token = generate_with_data(data, header, payload);
+println("{}", token);
 ```
 
