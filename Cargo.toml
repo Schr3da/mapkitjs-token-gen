@@ -2,6 +2,8 @@
 name = "mapkitjs-token-gen"
 version = "0.1.0"
 authors = ["Schr3da <strieder.georg@gmail.com>"]
+description = "This utility library provides wrapper functions to generate MapKitJS valid jwt tokens for your rust program."
+repository = "https://github.com/Schr3da/mapkitjs-token-gen"
 edition = "2018"
 
 [dependencies]
